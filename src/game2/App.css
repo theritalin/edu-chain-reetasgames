@@ -1,0 +1,103 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.effects {
+  display: flex;
+}
+
+* {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.won {
+  color: white;
+  background: rgb(39, 156, 39);
+  padding: 5px;
+  width: 200px;
+  margin: 0 auto;
+}
+
+.lost {
+  color: white;
+  background: rgb(182, 60, 56);
+  padding: 5px;
+  width: 200px;
+  margin: 0 auto;
+}
+
+.draw {
+  color: white;
+  background: rgb(93, 98, 168);
+  padding: 5px;
+  border-radius: 10px;
+  width: 200px;
+  margin: 0 auto;
+}
+
+img {
+  border-radius: 10px;
+}
+
+span {
+  margin-left: 5px;
+  background: rgb(230, 86, 86);
+  color: white;
+  padding: 5px 15px;
+}
+
+span:hover {
+  background: rgb(138, 49, 49);
+  transition: 0.5s;
+}
+
+.table {
+  color: white;
+  margin: 20px auto;
+  width: 200px;
+  background: rgb(138, 138, 241);
+  padding: 5px;
+}
+
+.result {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  margin: 0 auto;
+}
+
+.withdraw {
+  border-radius: 10px;
+
+}

@@ -162,8 +162,7 @@ const Home = () => {
       <div className="flex-1 flex flex-col">
         {/* Header */}
         <header className="bg-gray-800 p-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold">Reeta's Crypto Games</h1>
- 
+          <h1 className="text-2xl font-bold">Reeta's Edu Games</h1>
 
           <Button
             onClick={isConnected ? null : connectWallet}
@@ -211,13 +210,7 @@ const Home = () => {
                       <li>
                         1. Find target number with given numbers and operations
                       </li>
-                      <li>
-                        2. When done,approve transaction and get 0.2 REETA
-                      </li>
-                    </ul>
-                    Dice Game Rules
-                    <ul>
-                      <li>1. Roll the dice and get 0.2 REETA if win</li>
+                      <li>2. When done,approve transaction and get double.</li>
                     </ul>
                   </p>
                 </div>

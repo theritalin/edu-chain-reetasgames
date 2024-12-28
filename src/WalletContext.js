@@ -28,15 +28,12 @@ export const WalletProvider = ({ children }) => {
           const signer = await provider.getSigner();
           const userAddress = await signer.getAddress();
 
-       
-
           const mathcontractInstance = new ethers.Contract(
             contractAddressMath,
             abiMath,
             signer
           );
 
-        
           setMathContract(mathcontractInstance);
           setSigner(signer);
           setAccount(userAddress);
@@ -67,8 +64,6 @@ export const WalletProvider = ({ children }) => {
         const signer = provider.getSigner();
         const userAddress = await signer.getAddress();
 
- 
-
         const mathcontractInstance = new ethers.Contract(
           contractAddressMath,
           abiMath,
@@ -76,7 +71,7 @@ export const WalletProvider = ({ children }) => {
         );
 
         // Set states
-      
+
         setMathContract(mathcontractInstance);
         setSigner(signer);
         setAccount(userAddress);
@@ -96,7 +91,7 @@ export const WalletProvider = ({ children }) => {
     <WalletContext.Provider
       value={{
         account,
-    
+
         signer,
         isConnected,
         connectWallet,

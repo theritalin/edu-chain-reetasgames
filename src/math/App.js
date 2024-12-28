@@ -209,13 +209,7 @@ export default function MathGame() {
       console.error("Error withdrawing:", error);
     }
   };
-  const withdrawContractBalance = async () => {
-    try {
-      await mathContract.withdrawContractBalance();
-    } catch (error) {
-      console.error("Error withdrawing:", error);
-    }
-  };
+
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-purple-700 to-indigo-900 p-4">
@@ -322,12 +316,7 @@ export default function MathGame() {
             >
               {"Withdraw"}
             </Button>
-            <Button
-              onClick={withdrawContractBalance}
-              className="bg-yellow-600 hover:bg-yellow-700"
-            >
-              {"Withdraw Contract"}
-            </Button>
+         
           </div>
 
           {gameOver && (

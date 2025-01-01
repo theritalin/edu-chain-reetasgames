@@ -27,7 +27,7 @@ You may also see any lint errors in the console.
 
 ## Demo
 
-[demo.mov](https://github.com/theritalin/edu-chain-reetasgames/blob/main/demo.mov)
+https://github.com/user-attachments/assets/fcad92fd-24ff-4bf3-a80a-6890aed86aa7
 
 ## Contribution
 

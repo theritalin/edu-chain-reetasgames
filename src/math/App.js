@@ -47,10 +47,6 @@ export default function MathGame() {
     setCurrentCalculation([...currentCalculation, op]);
   };
 
-  //her işlemi bir arraye ata. Bu arrayi blockchainde ayrı ayrı verify et.
-  //eğer en son işlem sonrasında başlangıç sayılarına ulaşıyorsa başarılı olsun
-  //her eşittire basınca bu işlemi yapabilirsin
-
   const handleCalculationItemClick = (index) => {
     const item = currentCalculation[index];
     setCurrentCalculation(currentCalculation.filter((_, i) => i !== index));
@@ -117,35 +113,61 @@ export default function MathGame() {
               continue; // Geçersiz operatorleri atla
           }
 
-          formatted.push([num1, operationValue, num2]);
+          formatted.push(num1, operationValue, num2);
         }
 
-        setVerified((prevVerified) => {
-          const updatedVerified = [...prevVerified, formatted];
-          console.log("Updated Verified:", updatedVerified);
-          return updatedVerified;
-        });
+        // Yeni verified array'ini önce oluştur
+        const updatedVerified = [...verified, formatted];
+
+        // State'i güncelle ve yeni array'i sakla
+        setVerified(updatedVerified);
+
+        console.log("Verified array :", JSON.stringify(updatedVerified));
 
         if (result === targetNumber) {
           setGamewon(true);
-          console.log("Verified array before contract call:", verified[0]);
+          console.log(
+            "Verified array before contract call:",
+            JSON.stringify(updatedVerified)
+          );
+
           if (
-            verified.length === 0 ||
-            !verified.every((item) => Array.isArray(item))
+            updatedVerified.length === 0 ||
+            !updatedVerified.every((item) => Array.isArray(item))
           ) {
-            console.error("Invalid verified array:", verified);
+            console.error("Invalid verified array:", updatedVerified);
             return;
           }
 
-          // Blockchain kontrat çağrısı
-          const tx = await mathContract.checkResult(verified, {
-            gasLimit: 1000000, // Adjust this as needed
-          });
+          // Güncel array'i kullanarak kontrat çağrısı yap
+          const tx = await mathContract.checkResult(updatedVerified);
           await tx.wait();
 
           if (tx) {
-            setPayout(0.00002);
-            setGameOver(true);
+            // Transaction loglarını almak için
+            const receipt = await tx.wait();
+            receipt.logs.forEach((log) => {
+              // Log'ları işlemek için
+              const parsedLog = mathContract.interface.parseLog(log);
+              if (parsedLog.name === "DebugLog") {
+                console.log(
+                  `Debug Log - Message: ${parsedLog.args.message}, Value1: ${parsedLog.args.value1}, Value2: ${parsedLog.args.value2}, Value3: ${parsedLog.args.value3}`
+                );
+              } else if (parsedLog.name === "GameWon") {
+                console.log(
+                  `Game Won - Player : ${parsedLog.args.player}, Payout: ${parsedLog.args.payout}`
+                );
+
+                setPayout(0.00002);
+                setGameOver(true);
+              } else if (parsedLog.name === "GameLost") {
+                console.log(`Game Lost - Player : ${parsedLog.args.player}`);
+                setPayout(0);
+                setGameOver(true);
+              }
+
+              //add a control the logs here. if gamewon exists then set here
+            });
           }
         }
 
@@ -160,6 +182,39 @@ export default function MathGame() {
       }
     }
   };
+
+  // //for testing purposes
+  // const demo = async () => {
+  //   const solution = [
+  //     [2, 2, 4], // 2 * 4 = 8
+  //     [8, 0, 7], // 8 + 7 = 15
+  //     [15, 2, 6], // 15 * 6 = 90
+  //     [90, 0, 10], // 90 + 10 = 100
+  //   ];
+  //   const tx = await mathContract.checkResult(solution, {
+  //     //gas: 6721975, // Increased gas limit
+  //   });
+  //   await tx.wait();
+
+  //   if (tx) {
+  //     setPayout(0.00002);
+  //     setGameOver(true);
+
+  //     // Transaction loglarını almak için
+  //     const receipt = await tx.wait();
+  //     receipt.logs.forEach((log) => {
+  //       // Log'ları işlemek için
+  //       const parsedLog = mathContract.interface.parseLog(log);
+  //       if (parsedLog.name === "DebugLog") {
+  //         console.log(
+  //           `Debug Log - Message: ${parsedLog.args.message}, Value1: ${parsedLog.args.value1}, Value2: ${parsedLog.args.value2}, Value3: ${parsedLog.args.value3}`
+  //         );
+  //       }
+  //     });
+  //   }
+
+  //   console.log("Check result completed");
+  // };
 
   const startGame = async () => {
     if (!account) {
@@ -209,7 +264,6 @@ export default function MathGame() {
       console.error("Error withdrawing:", error);
     }
   };
-
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-purple-700 to-indigo-900 p-4">
@@ -316,7 +370,6 @@ export default function MathGame() {
             >
               {"Withdraw"}
             </Button>
-         
           </div>
 
           {gameOver && (

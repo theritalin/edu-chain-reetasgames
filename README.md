@@ -29,7 +29,6 @@ You may also see any lint errors in the console.
 
 [demo.mov](https://github.com/theritalin/edu-chain-reetasgames/blob/main/demo.mov)
 
-
 ## Contribution
 
 If you would like to contribute, please submit a pull request. We welcome all feedback and suggestions.
@@ -39,5 +38,7 @@ If you would like to contribute, please submit a pull request. We welcome all fe
 This project is licensed under the MIT License. See the LICENSE file for more details.
 
 ## Contact
+
+Contract Address :0xc0Db67f6d60EEfA9e29B5Ff9Bf186eB6Dc90287F
 
 If you have any question about this project, feel free to reach out.

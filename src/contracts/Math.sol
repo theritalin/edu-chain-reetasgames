@@ -1,7 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-contract MathGame {
+
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+
+contract MathGame is ReentrancyGuard {
     uint256 public gameFee;
     uint256 public timeLimit;
 
@@ -14,6 +17,7 @@ contract MathGame {
 
     mapping(address => GameState) public playerGames;
     mapping(address => uint256) public playerBalances;
+    address owner;
 
     event GameStarted(address player, uint256 targetNumber, uint256[] numbers);
     event GameWon(address player, uint256 payout);
@@ -28,8 +32,9 @@ contract MathGame {
     );
 
     constructor() {
+        owner = payable(msg.sender);
         gameFee = 0.00001 ether;
-        timeLimit = 180;
+        timeLimit = 120;
     }
 
     function generateRandomNumbers(
@@ -69,7 +74,7 @@ contract MathGame {
         return playerGames[msg.sender].targetNumber;
     }
 
-    function play() external payable {
+    function play() external payable nonReentrant{
         require(msg.value == gameFee, "Incorrect game fee");
         emit DebugLog("play", 0, 0, 0);
         GameState storage game = playerGames[msg.sender];
@@ -178,7 +183,7 @@ contract MathGame {
         return false;
     }
 
-    function checkResult(uint256[][] memory incoming_results) external {
+    function checkResult(uint256[][] memory incoming_results) external nonReentrant{
         emit DebugLog("Starting checkResult", 0, 0, 0);
 
         GameState storage game = playerGames[msg.sender];
@@ -208,7 +213,7 @@ contract MathGame {
         game.isActive = false;
     }
 
-    function withdraw() external {
+    function withdraw() external nonReentrant{
         uint256 amount = playerBalances[msg.sender];
         require(amount > 0, "No balance to withdraw");
 
@@ -220,12 +225,21 @@ contract MathGame {
     }
 
     function changeFee(uint256 _newFee) external {
+        require(msg.sender == owner, "Only owner can perform");
         gameFee = _newFee;
         emit FeeChanged(_newFee);
     }
 
     function changeTimeLimit(uint256 _newLimit) external {
+        require(msg.sender == owner, "Only owner can perform");
         timeLimit = _newLimit;
+    }
+
+
+    // Function to withdraw the balance from the contract
+    function withdrawContractBalance() public  {
+        require(msg.sender == owner, "Only owner can perform");
+        payable(msg.sender).transfer(address(this).balance);
     }
 
     receive() external payable {}

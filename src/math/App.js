@@ -235,8 +235,10 @@ export default function MathGame() {
 
       console.log(`Target : ${target}`);
       console.log(`generted Numbers : ${generatedNumbers}`);
+
       setTargetNumber(target.toNumber());
       const newNumbers = generatedNumbers.map((n) => n.toNumber());
+      
       setInitialNumbers(newNumbers);
       setNumbers(newNumbers);
       setCurrentCalculation([]);

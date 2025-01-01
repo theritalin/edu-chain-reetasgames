@@ -1,6 +1,6 @@
 # Getting Started with Reeta's Games
 
-This project is developed for the Edu-Chain-Hackathon-Semester-2 [https://www.risein.com/bootcamp-details/edu-chain-hackathon-semester-2](Rise In).
+This project is developed for the Edu-Chain-Hackathon-Semester-2 [RiseIn](https://www.risein.com/bootcamp-details/edu-chain-hackathon-semester-2).
 This project is consist of Educational Games. The first one is: Math Game.
 You can check the game here: [Link](https://reetasgames.vercel.app/#)
 

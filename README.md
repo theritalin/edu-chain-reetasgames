@@ -1,7 +1,8 @@
 # Getting Started with Reeta's Games
 
-This project is developed for the Edu-Chain-Hackathon-Semester-2 [https://www.risein.com/bootcamp-details/edu-chain-hackathon-semester-2][Rise In].
-Ths project is consist of Educational Games. The first one is: Math Game
+This project is developed for the Edu-Chain-Hackathon-Semester-2 [https://www.risein.com/bootcamp-details/edu-chain-hackathon-semester-2](Rise In).
+This project is consist of Educational Games. The first one is: Math Game.
+You can check the game here: [Link](https://reetasgames.vercel.app/#)
 
 ## Math Game
 
@@ -20,7 +21,7 @@ In the project directory, you can run:
 ### `npm start`
 
 Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Open http://localhost:3000to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
